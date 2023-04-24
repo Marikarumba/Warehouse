@@ -2,13 +2,19 @@ package com.skypro.warehouse.service;
 
 import com.skypro.warehouse.model.Socks;
 import com.skypro.warehouse.repository.SocksRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-@RequiredArgsConstructor
+
 @Service
 public class SocksService {
+
+    public SocksService(Socks socks, SocksRepository socksRepository) {
+        this.socks = socks;
+        this.socksRepository = socksRepository;
+    }
 
     private final Socks socks;
     private final SocksRepository socksRepository;
