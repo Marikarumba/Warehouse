@@ -6,15 +6,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 @Service
 public class SocksService {
 
+    private final SocksRepository socksRepository;
+    Logger logger = LoggerFactory.getLogger(SocksService.class);
     public SocksService( SocksRepository socksRepository) {
         this.socksRepository = socksRepository;
     }
-    private final SocksRepository socksRepository;
-    Logger logger = LoggerFactory.getLogger(SocksService.class);
-
+    public enum Operation {
+        equal, moreThan, lessThan
+    }
 
     public Socks incomeSocks(String color, int cottonPart, int quantity) {
         logger.info("Was invoked method for incomeSocks");
@@ -33,12 +37,20 @@ public class SocksService {
         }
     }
 
-    public Socks getSocks() {
+    public List<Socks> findSocks(String color, Operation operation, int cottonPart) {
         logger.info("Was invoked method for getSocks");
-       return null;
+        List <Socks> findSocks = new ArrayList<>();
+        switch (operation) {
+            case equal -> findSocks = socksRepository.findByColorAndCottonPartEquals(color, cottonPart);
+            case lessThan -> findSocks = socksRepository.findByColorAndCottonPartLessThan(color, cottonPart);
+            case moreThan -> findSocks = socksRepository.findByColorAndCottonPartGreaterThan(color, cottonPart);
+        }
+        return findSocks;
     }
 
     public Socks outcomeSocks(String color, int cottonPart, int quantity) {
         return null;
     }
+
+
 }

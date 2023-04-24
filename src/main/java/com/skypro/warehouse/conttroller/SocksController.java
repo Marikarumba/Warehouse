@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+import java.util.List;
 
 
 @RestController
@@ -25,11 +25,14 @@ public class SocksController {
     }
 
     @PostMapping ("/income")
-    public ResponseEntity<Socks> addSocks(@RequestParam String color, @RequestParam int cottonPart, @RequestParam int quantity) {
+    public ResponseEntity<Socks> addSocks(@RequestParam String color,
+                                          @RequestParam int cottonPart,
+                                          @RequestParam int quantity) {
         logger.info("Request for add socks");
         if ( color.isEmpty() || cottonPart  <0 || cottonPart > 101 || quantity<0 ){
-
+            return null;
         }
+
         return ResponseEntity.ok(socksService.incomeSocks(color, cottonPart,quantity));
     }
 
@@ -38,5 +41,12 @@ public class SocksController {
                                                     @RequestParam int cottonPart,
                                                     @RequestParam int quantity) {
         return ResponseEntity.ok(socksService.outcomeSocks(color, cottonPart, quantity));
+    }
+
+    @GetMapping("/{color}{operation}{cottonPart}")
+    public ResponseEntity<List<Socks>> findSocks(@PathVariable String color,
+                                 @PathVariable SocksService.Operation operation,
+                                 @PathVariable int cottonPart) {
+        return ResponseEntity.ok(socksService.findSocks(color, operation, cottonPart));
     }
 }
