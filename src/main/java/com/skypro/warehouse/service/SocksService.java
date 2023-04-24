@@ -16,8 +16,8 @@ public class SocksService {
     Logger logger = LoggerFactory.getLogger(SocksService.class);
 
 
-    public Socks addSocks(String color, int cottonPart, int quantity) {
-        logger.info("Was invoked method for addSocks");
+    public Socks incomeSocks(String color, int cottonPart, int quantity) {
+        logger.info("Was invoked method for incomeSocks");
         if (socksRepository.existsByColorAndCottonPart(color, cottonPart)) {
             Socks socks1 = socksRepository.findByColorAndCottonPart(color, cottonPart);
             socks1.setQuantity(socks1.getQuantity()+ quantity);
@@ -33,11 +33,12 @@ public class SocksService {
         }
     }
 
-    public Socks findSocks(long id) {
-        logger.info("Was invoked method for findSocks");
+    public Socks getSocks() {
+        logger.info("Was invoked method for getSocks");
        return null;
-        //socksRepository.findById(id);
-                //.orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден!")));;
     }
 
+    public Socks outcomeSocks(String color, int cottonPart, int quantity) {
+        return null;
+    }
 }
