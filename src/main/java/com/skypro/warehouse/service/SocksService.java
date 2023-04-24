@@ -2,8 +2,6 @@ package com.skypro.warehouse.service;
 
 import com.skypro.warehouse.model.Socks;
 import com.skypro.warehouse.repository.SocksRepository;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,12 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SocksService {
 
-    public SocksService(Socks socks, SocksRepository socksRepository) {
-        this.socks = socks;
+    public SocksService( SocksRepository socksRepository) {
         this.socksRepository = socksRepository;
     }
-
-    private final Socks socks;
     private final SocksRepository socksRepository;
     Logger logger = LoggerFactory.getLogger(SocksService.class);
 
@@ -29,7 +24,10 @@ public class SocksService {
             logger.info("Found socks and add quantity");
             return socksRepository.save(socks1);
         } else {
-            Socks socks1 = new Socks(1,color,cottonPart,quantity);
+            Socks socks1 = new Socks();
+            socks1.setColor(color);
+            socks1.setCottonPart(cottonPart);
+            socks1.setQuantity(quantity);
             logger.info("Socks added");
             return socksRepository.save(socks1);
         }
