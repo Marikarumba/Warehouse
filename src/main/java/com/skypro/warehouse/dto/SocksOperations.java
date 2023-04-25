@@ -1,5 +1,5 @@
 package com.skypro.warehouse.dto;
 
 public enum SocksOperations {
-    moreThan, lessThan, equal
+    MORE_THAN, LESS_THAN, EQUAL
 }

@@ -62,9 +62,9 @@ public class SocksService {
         logger.info("Was invoked method for getSocks");
         List<Socks> findSocks = new ArrayList<>();
         switch (ask.getOperation()) {
-            case equal -> findSocks = socksRepository.findSocksByColorAndCottonPartEquals(ask.getColor(), ask.getCottonPart());
-            case lessThan -> findSocks = socksRepository.findSocksByColorAndCottonPartLessThan(ask.getColor(), ask.getCottonPart());
-            case moreThan -> findSocks = socksRepository.findSocksByColorAndCottonPartGreaterThan(ask.getColor(), ask.getCottonPart());
+            case EQUAL -> findSocks = socksRepository.findSocksByColorAndCottonPartEquals(ask.getColor(), ask.getCottonPart());
+            case LESS_THAN -> findSocks = socksRepository.findSocksByColorAndCottonPartLessThan(ask.getColor(), ask.getCottonPart());
+            case MORE_THAN -> findSocks = socksRepository.findSocksByColorAndCottonPartGreaterThan(ask.getColor(), ask.getCottonPart());
         }
         return findSocks;
     }

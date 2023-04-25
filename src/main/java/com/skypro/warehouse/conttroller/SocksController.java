@@ -54,8 +54,6 @@ public class SocksController {
             })
     public ResponseEntity<Socks> outcomeSocks(@Valid @RequestBody SocksDto Socks) {
         logger.info("Request for out socks");
-        // Что выводим, если носки не найдены ???
-        // Что делаем, если запрошено большее количество, чем есть в наличии ???
         return ResponseEntity.ok(socksService.outcomeSocks(Socks));
     }
     @GetMapping()
@@ -69,13 +67,13 @@ public class SocksController {
     public ResponseEntity<List<Socks>> getSocks(@RequestParam String color,
                                                 @RequestParam String operation,
                                                 @RequestParam int cottonPart) {
-        if (color.isBlank() ) {
+        if (color.isBlank() || color.isEmpty() ) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        if (!(operation.equals("moreThan")||operation.equals("lessThan")||operation.equals("equal") )) {
+        if (!(operation.equals("MORE_THAN")||operation.equals("LESS_THAN")||operation.equals("EQUAL") )) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        if ((cottonPart<1)||(cottonPart>100) ) {
+        if ((cottonPart<1) || (cottonPart>100) ) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         SocksListDto ask=new SocksListDto();
