@@ -9,7 +9,6 @@ import com.skypro.warehouse.repository.SocksRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class SocksService {
     }
 
 
-    public Socks outcomeSocks(SocksDto inSocks) throws SocksNotFoundException, LackOfSocksException {
+    public Socks outcomeSocks(SocksDto inSocks) {
         logger.info("Was invoked method for outcomeSocks");
         if (socksRepository.existsByColorAndCottonPart(inSocks.getColor(), inSocks.getCottonPart())) {
             Socks socks1 = socksRepository.findByColorAndCottonPart(inSocks.getColor(), inSocks.getCottonPart());
@@ -51,7 +50,7 @@ public class SocksService {
                 return socksRepository.save(socks1);
             } else {
                 logger.info("Not enough socks");
-                throw new LackOfSocksException ("Not enough socks");
+                throw new LackOfSocksException ("Not enough socks. Balance: " + socks1.getQuantity());
             }
         } else {
             logger.info("Socks not Found");

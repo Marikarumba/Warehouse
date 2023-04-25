@@ -3,8 +3,6 @@ package com.skypro.warehouse.conttroller;
 import com.skypro.warehouse.dto.SocksDto;
 import com.skypro.warehouse.dto.SocksListDto;
 import com.skypro.warehouse.dto.SocksOperations;
-import com.skypro.warehouse.exception.LackOfSocksException;
-import com.skypro.warehouse.exception.SocksNotFoundException;
 import com.skypro.warehouse.model.Socks;
 import com.skypro.warehouse.service.SocksService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,13 +52,13 @@ public class SocksController {
                     @ApiResponse(responseCode = "400", description = "Parameters Error", content = @Content),
                     @ApiResponse(responseCode = "500", description = "Server error", content = @Content)
             })
-    public ResponseEntity<Socks> outcomeSocks(@Valid @RequestBody SocksDto Socks) throws SocksNotFoundException, LackOfSocksException {
+    public ResponseEntity<Socks> outcomeSocks(@Valid @RequestBody SocksDto Socks) {
         logger.info("Request for out socks");
         // Что выводим, если носки не найдены ???
         // Что делаем, если запрошено большее количество, чем есть в наличии ???
         return ResponseEntity.ok(socksService.outcomeSocks(Socks));
     }
-    @GetMapping("/outcome")
+    @GetMapping()
     @Operation(summary = "Запрос наличия носков на склада",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content =

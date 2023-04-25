@@ -1,7 +1,6 @@
 package com.skypro.warehouse.model;
 
 import lombok.*;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
